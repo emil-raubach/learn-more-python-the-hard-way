@@ -1,7 +1,10 @@
 # Byte-compiled / optimized / DLL files
-__pychache
+__pychache__
 *.py[cod]
 *$py.class
 
 # my arbitraty text files that are just for testing
 *.txt
+
+# ignore the .vscode files automatically generated
+.vscode/
