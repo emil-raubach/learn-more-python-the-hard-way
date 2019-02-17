@@ -1,0 +1,7 @@
+# Byte-compiled / optimized / DLL files
+__pychache
+*.py[cod]
+*$py.class
+
+# my arbitraty text files that are just for testing
+*.txt
