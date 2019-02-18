@@ -18,11 +18,28 @@ class DoubleLinkedList(object):
     def __init__(self):
         self.begin = None
         self.end = None
+        self.num_nodes = 0
 
 
     def push(self, obj):
         """Appends a new value on the end of the list"""
-
+        # Create a new DLL node instance
+        # Is the list empty?
+        # If so, set start and end to the new node
+        # set the new node prev and next to None
+        # Increment the num nodes
+        # elif the start is equal to the end (one node)
+        # Set start.next to the new node
+        # Set newnode.prev to start
+        # set self.end = new_node
+        # new_node.next is None
+        # Increment the num nodes
+        # otherwise (2 or more nodes?)
+        # end.next = newnode
+        # newnode.prev = end
+        # newnode.next = None
+        # end = newnode
+        # increment num nodes
     
     def pop(self):
         """Removes the last item and returns it."""
