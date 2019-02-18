@@ -63,4 +63,4 @@ class DoubleLinkedList(object):
 
 
     def dump(self, mark):
-        """Debugging function that dumps the contents of the list.""""
+        """Debugging function that dumps the contents of the list."""

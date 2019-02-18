@@ -26,7 +26,7 @@ class SingleLinkedList(object):
         if self.begin is None:
             self.begin = SingleLinkedListNode(obj, None)
             self.end = self.begin
-        elif self.end is None: # don't even need this branch!
+        elif self.end is None: # don't even need this branch; begin = end!
             self.end = SingleLinkedListNode(obj, None)
             self.begin.next = self.end
         else:
