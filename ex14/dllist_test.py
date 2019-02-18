@@ -7,3 +7,5 @@ def test_push():
     assert colors.count() == 1
     colors.push("Ultramarine Blue")
     assert colors.count() == 2
+    colors.push("Magenta")
+    assert colors.count() == 3

@@ -23,23 +23,25 @@ class DoubleLinkedList(object):
 
     def push(self, obj):
         """Appends a new value on the end of the list"""
-        # Create a new DLL node instance
-        # Is the list empty?
-        # If so, set start and end to the new node
-        # set the new node prev and next to None
-        # Increment the num nodes
-        # elif the start is equal to the end (one node)
-        # Set start.next to the new node
-        # Set newnode.prev to start
-        # set self.end = new_node
-        # new_node.next is None
-        # Increment the num nodes
-        # otherwise (2 or more nodes?)
-        # end.next = newnode
-        # newnode.prev = end
-        # newnode.next = None
-        # end = newnode
-        # increment num nodes
+
+        node = DoubleLinkedListNode(obj, None, None)
+
+        if self.begin is None:
+            self.begin = node
+            self.end = self.begin
+            self.num_nodes += 1
+        elif self.begin == self.end:
+            self.begin.next = node
+            node.prev = self.begin
+            self.end = node
+            node.next = None
+            self.num_nodes += 1
+        else:
+            self.end.next = node
+            node.prev = self.end
+            node.next = None
+            self.end = node
+            self.num_nodes += 1
     
     def pop(self):
         """Removes the last item and returns it."""
@@ -73,7 +75,7 @@ class DoubleLinkedList(object):
 
     def count(self):
         """Counts the number of elements in the list."""
-
+        return self.num_nodes
 
     def get(self, index):
         """Get the value at index."""
