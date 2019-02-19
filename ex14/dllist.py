@@ -45,7 +45,20 @@ class DoubleLinkedList(object):
     
     def pop(self):
         """Removes the last item and returns it."""
-
+        # if end is None
+            # return None
+        # elif begin == end
+            # temp = end.value
+            # begin and end == None
+            # decrement the num of nodes
+            # return the temp var
+        # otherwise
+            # temp = end.value
+            # set end to end.prev
+            # set end.next.prev to None
+            # set end.next to None
+            # decrement the num of nodes
+            # return the value
 
     def shift(self, obj):
         """Actually just another name for push"""
@@ -83,3 +96,25 @@ class DoubleLinkedList(object):
 
     def dump(self, mark):
         """Debugging function that dumps the contents of the list."""
+        cur = self.begin
+        to_print = ""
+
+        while cur:
+            if not (cur is self.end):
+                to_print = to_print + str(cur.value) + ", "
+            else:
+                to_print = to_print + str(cur.value)
+
+            cur = cur.next
+
+        dump_string = f"{mark}:  {to_print}"
+        print(dump_string, end=" ")
+
+
+    def _invariant(self):
+        if self.begin is None:
+            assert self.end is None, "End set while begin is not."
+
+        if self.begin:
+            assert self.begin.prev is None, "begin.prev not None"
+            assert self.end.next is None, "end.next not None"
