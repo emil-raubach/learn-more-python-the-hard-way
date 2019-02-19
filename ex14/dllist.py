@@ -45,20 +45,22 @@ class DoubleLinkedList(object):
     
     def pop(self):
         """Removes the last item and returns it."""
-        # if end is None
-            # return None
-        # elif begin == end
-            # temp = end.value
-            # begin and end == None
-            # decrement the num of nodes
-            # return the temp var
-        # otherwise
-            # temp = end.value
-            # set end to end.prev
-            # set end.next.prev to None
-            # set end.next to None
-            # decrement the num of nodes
-            # return the value
+        
+        if self.end is None:
+            return None
+        elif self.begin == self.end:
+            rv = self.end.value
+            self.begin = None
+            self.end = None
+            self.num_nodes -= 1
+            return rv
+        else:
+            rv = self.end.value
+            self.end = self.end.prev
+            self.end.next.prev is None
+            self.end.next = None
+            self.num_nodes -= 1
+            return rv
 
     def shift(self, obj):
         """Actually just another name for push"""
