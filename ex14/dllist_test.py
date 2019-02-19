@@ -23,3 +23,14 @@ def test_pop():
     colors._invariant()
     assert colors.pop() == "Alizarin"
     assert colors.pop() == "Magenta"
+
+
+def test_unshift():
+    colors = DoubleLinkedList()
+    colors.push("Viridian")
+    colors.push("Sap Green")
+    colors.push("Van Dyke")
+    assert colors.unshift() == "Viridian"
+    assert colors.unshift() == "Sap Green"
+    assert colors.unshift() == "Van Dyke"
+    assert colors.unshift() == None

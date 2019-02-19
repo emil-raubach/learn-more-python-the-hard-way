@@ -68,7 +68,21 @@ class DoubleLinkedList(object):
 
     def unshift(self):
         """Removes the first item (from begin) and returns it."""
-
+        # if begin exists
+            # temp node = end
+            # if begin == end
+                # begin = None
+                # end = None
+                # decr. # nodes
+                # return temp_node.value
+            # else
+                # begin = begin.next
+                # begin.prev = None
+                # temp node next = None
+                # decr. # nodes
+                # return value
+        # else
+            # return None
 
     def detach_node(self, node):
         """You'll need to use this operation sometimes, but mostly
