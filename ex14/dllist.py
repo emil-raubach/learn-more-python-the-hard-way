@@ -64,35 +64,74 @@ class DoubleLinkedList(object):
 
     def shift(self, obj):
         """Actually just another name for push"""
+        node = DoubleLinkedListNode(obj, None, None)
+        
+        if self.begin:
+            if self.begin == self.end:
+                self.begin = node
+                node.prev = None
+                node.next = self.end
+                self.end.prev = node
+            else:
+                self.begin.prev = node
+                node.next = self.begin
+                self.begin = node
+        else:
+            self.begin = node
+            self.end = self.begin
 
+        self.num_nodes += 1
 
+        
     def unshift(self):
         """Removes the first item (from begin) and returns it."""
-        # if begin exists
-            # temp node = end
-            # if begin == end
-                # begin = None
-                # end = None
-                # decr. # nodes
-                # return temp_node.value
-            # else
-                # begin = begin.next
-                # begin.prev = None
-                # temp node next = None
-                # decr. # nodes
-                # return value
-        # else
-            # return None
+        
+        if self.begin:
+            rv = self.begin
+            if self.begin == self.end:
+                self.begin = None
+                self.end = None
+                self.num_nodes -= 1
+            else:
+                self.begin = rv.next
+                self.begin.prev = None
+                # rv.next = None # needed?
+                self.num_nodes -= 1
+            return rv.value
+        else:
+            return None
 
     def detach_node(self, node):
         """You'll need to use this operation sometimes, but mostly
         inside remove().  It should take a node, and detach it from 
         the list, whether the node is at the front, end, or in the middle."""
-
+        if node == self.begin:
+            self.unshift()
+        elif node == self.end:
+            self.pop()
+        else:
+            node.prev.next = node.next
+            node.next.prev = node.prev
+            node.prev = None
+            node.next = None
+            self.num_nodes -= 1
 
     def remove(self, obj):
         """Finds a matching item and removes it from the list."""
+        if self.begin:
+            index = 0
+            cur = self.begin
 
+            while cur:
+                if obj == cur.value:
+                    self.detach_node(cur)
+                    self.num_nodes -= 1
+                    return index
+                else:
+                    cur = cur.next
+                    index += 1
+        else:
+            return None
 
     def first(self):
         """Returns a *reference* to the first item, does not remove."""
