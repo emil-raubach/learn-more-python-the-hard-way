@@ -135,11 +135,11 @@ class DoubleLinkedList(object):
 
     def first(self):
         """Returns a *reference* to the first item, does not remove."""
-
+        return self.begin.value
 
     def last(self):
         """Returns a reference to the last item, does not remove."""
-
+        return self.end.value
 
     def count(self):
         """Counts the number of elements in the list."""
@@ -147,7 +147,18 @@ class DoubleLinkedList(object):
 
     def get(self, index):
         """Get the value at index."""
+        if self.begin:
+            count = 0
+            cur = self.begin
 
+            while cur:
+                if index == count:
+                    return cur.value
+                else:
+                    count += 1
+                    cur = cur.next
+        else:
+            return None
 
     def dump(self, mark):
         """Debugging function that dumps the contents of the list."""
@@ -158,7 +169,7 @@ class DoubleLinkedList(object):
             if not (cur is self.end):
                 to_print = to_print + str(cur.value) + ", "
             else:
-                to_print = to_print + str(cur.value)
+                to_print = '\n' + to_print + str(cur.value) + '\n'
 
             cur = cur.next
 
