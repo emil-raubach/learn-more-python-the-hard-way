@@ -49,10 +49,10 @@ class DoubleLinkedList(object):
         if self.end is None:
             return None
         elif self.begin == self.end:
-            rv = self.end.value
+            rv = self.end.value # this is redundant
             self.begin = None
             self.end = None
-            self.num_nodes -= 1
+            self.num_nodes -= 1 # redundant, but depends on count() func.
             return rv
         else:
             rv = self.end.value
@@ -131,7 +131,7 @@ class DoubleLinkedList(object):
                     cur = cur.next
                     index += 1
         else:
-            return None
+            return None # Zed returns -1. Same as None? (or False? or NULL?)
 
     def first(self):
         """Returns a *reference* to the first item, does not remove."""
