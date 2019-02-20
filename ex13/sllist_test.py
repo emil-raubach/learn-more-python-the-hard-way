@@ -83,7 +83,7 @@ def test_last():
 def test_get():
     colors = SingleLinkedList()
     colors.push("Vermillion")
-    assert colors.get(0 == "Vermillion")
+    assert colors.get(0) == "Vermillion"
     colors.push("Sap Green")
     assert colors.get(0) == "Vermillion"
     assert colors.get(1) == "Sap Green"
