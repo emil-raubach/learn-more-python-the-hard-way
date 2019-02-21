@@ -21,7 +21,7 @@ class Stack(object):
         
         if self._top is None:
             self._top = node
-            node.next = None # not needed?
+            node.next = None # not needed?  Don't think so...
         else:
             node.next = self._top
             self._top = node
@@ -33,7 +33,7 @@ class Stack(object):
         if self._top:
             node = self._top
             self._top = self._top.next
-            node.next = None
+            node.next = None  # not needed?  Don't think so...
             return node.value
         else:
             return None
