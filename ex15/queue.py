@@ -23,12 +23,20 @@ class Queue(object):
         node = QueueNode(obj, None, None)
 
         if self._head:
-            # head.next = node
-            self._head.next = node
-            # node.prev = head
-            node.prev = self._head
-            # point tail at new node
-            self._tail = node
+            if self._head.next is None:
+                # head.next = node
+                self._head.next = node
+                # node.prev = head
+                node.prev = self._head
+                # point tail at new node
+                self._tail = node
+            else:
+                # new node.prev = tail
+                node.prev = self._tail
+                # tail.next = node
+                self._tail.next = node
+                # set tail to new node
+                self._tail = node
         else:
              self._head = node
              self._tail = self._head
@@ -47,13 +55,9 @@ class Queue(object):
         # else
             # return None
 
-    def first(self):
+    def front(self):
         """Returns a *reference* to the first item, does not remove."""
-        
-
-    def last(self):
-        """Returns a reference to the last item, does not remove."""
-        
+                
 
     def count(self):
         """Counts the number of elements in the list."""
@@ -65,15 +69,6 @@ class Queue(object):
             node = node.next
 
         return count
-
-
-    def get(self, index):
-        """Get the value at index."""
-        
-
-    def dump(self, mark):
-        """Debugging function that dumps the contents of the list."""
-        
 
 
     def _invariant(self):

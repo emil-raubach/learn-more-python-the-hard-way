@@ -21,7 +21,7 @@ class Stack(object):
         
         if self._top is None:
             self._top = node
-            node.next = None
+            node.next = None # not needed?
         else:
             node.next = self._top
             self._top = node

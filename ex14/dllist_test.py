@@ -21,7 +21,7 @@ def test_pop():
     colors.push("Tomato Red")
     assert colors.pop() == "Tomato Red"
     colors._invariant()
-    colors.get(1 == "Alizarin")
+    colors.get(1) == "Alizarin"
     assert colors.pop() == "Alizarin"
     assert colors.pop() == "Magenta"
     colors._invariant()

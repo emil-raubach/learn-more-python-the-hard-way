@@ -8,6 +8,7 @@ def test_shift():
     colors._invariant()
     colors.shift("Violet")
     assert colors.count() == 2
-    # colors.shift("Pthalo Blue")
-    # assert colors.count() == 3
+    colors.shift("Pthalo Blue")
+    assert colors.count() == 3
+    colors._invariant()
 
