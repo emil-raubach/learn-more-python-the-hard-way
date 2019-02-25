@@ -1,5 +1,5 @@
 import sorting
-from ex14.dllist import DoubleLinkedList
+from dllist import DoubleLinkedList # can't import this...
 from random import randint
 
 max_numbers = 30
