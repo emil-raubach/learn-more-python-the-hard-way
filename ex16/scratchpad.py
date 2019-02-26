@@ -8,6 +8,20 @@ from random import randint
 # need to break a dllist into two sublists
 # one idea is to create copies using the dllist
 # unshift and push methods.
+# try to make a function for the list copying
+def copy_sublist(
+        target_list: DoubleLinkedList, 
+        dest_list: DoubleLinkedList, 
+        dest_size: int) -> DoubleLinkedList:
+    i = 0
+    while i < dest_size:
+        nodeval = target_list.unshift()
+        dest_list.push(nodeval)
+        i += 1
+
+    return dest_list # not needed; list is altered in-place
+
+
 number = randint(5, 10)
 
 start_list = DoubleLinkedList()
@@ -29,11 +43,14 @@ right_size = lsize - mid
 print(f"\nThe length of left is {left_size} & right is {right_size}.")
 
 # copy half of the list into left
-i = 0
-while i < mid:
-    nodeval = start_list.unshift()
-    left.push(nodeval)
-    i += 1
+# i = 0
+# while i < mid:
+#     nodeval = start_list.unshift()
+#     left.push(nodeval)
+#     i += 1
+
+# replace above while block with a function call:
+copy_sublist(start_list, left, mid)
 
 start_list.dump("start after left copy")
 left.dump("left after copying from start")

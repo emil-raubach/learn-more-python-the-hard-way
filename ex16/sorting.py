@@ -1,3 +1,6 @@
+from dllist import DoubleLinkedList
+from scratchpad import copy_sublist
+
 def bubble_sort(dllist):
     """Sorts a list of numbers using bubble sort."""
     while True:
@@ -17,8 +20,9 @@ def bubble_sort(dllist):
         # this is reset at the top but if we never swapped then it's sorted
         if is_sorted: break
 
-# topd-down merge sort using p-code from the Wikipedia page
-def merge_sort(dllist):
+# top-down merge sort using p-code from the Wikipedia page
+# added type hinting in the function signature
+def merge_sort(dllist: DoubleLinkedList) -> DoubleLinkedList:
     # // Base case. A list of zero or one elements is sorted, by definition.
     # if length of m ≤ 1 then
     if dllist.count() <= 1:
@@ -28,8 +32,18 @@ def merge_sort(dllist):
     # // Recursive case. First, divide the list into equal-sized sublists
     # // consisting of the first half and second half of the list.
     # // This assumes lists start at index 0.
+    middle = dllist.count() // 2
+    lsize = middle
+    rsize = dllist.count() - middle
     # var left := empty list    
+    left = DoubleLinkedList()
     # var right := empty list    
+    right = DoubleLinkedList()
+
+    # create left sublist
+    copy_sublist(dllist, left, lsize)
+    # create right sublist
+    copy_sublist(dllist, right, rsize)
     # for each x with index i in m do
     #     if i < (length of m)/2 then
     #         add x to left
@@ -38,10 +52,12 @@ def merge_sort(dllist):
 
     # // Recursively sort both sublists.
     # left := merge_sort(left)
+    left = merge_sort(left)
     # right := merge_sort(right)
-
+    right = merge_sort(right)
     # // Then merge the now-sorted sublists.
     # return merge(left, right)
+    return merge(left, right)
 
 
 # function merge(left, right)
