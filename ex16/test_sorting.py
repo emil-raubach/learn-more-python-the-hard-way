@@ -30,9 +30,9 @@ def test_bubble_sort():
     assert is_sorted(numbers)
 
 
-# def test_merge_sort():
-#     numbers = random_list(max_numbers)
+def test_merge_sort():
+    numbers = random_list(max_numbers)
 
-#     sorting.merge_sort(numbers)
+    sorting.merge_sort(numbers)
 
-#     assert is_sorted(numbers)
+    assert is_sorted(numbers)
