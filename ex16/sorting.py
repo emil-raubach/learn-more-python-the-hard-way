@@ -1,6 +1,7 @@
 from dllist import DoubleLinkedList
 from scratchpad import copy_sublist
 
+
 def bubble_sort(numbers):
     """Sorts a list of numbers using bubble sort."""
     while True:
@@ -18,28 +19,36 @@ def bubble_sort(numbers):
             node = node.next
 
         # this is reset at the top but if we never swapped then it's sorted
-        if is_sorted: break
+        if is_sorted:
+            break
 
 # top-down merge sort using p-code from the Wikipedia page
 # added type hinting in the function signature
 # As of 27Feb2019 this is not working at all...
+
+
 def merge_sort(dllist: DoubleLinkedList) -> DoubleLinkedList:
-    
+
     if dllist.count() <= 1:
-        return dllist
+        print("<<< base case: dllist=", dllist.dump("base case"))
+        return # dllist - does this work?  Just returns None right?
 
     middle = dllist.count() // 2
+    # print(">>> middle=", middle)
     lsize = middle
+    # print(">>> lsize=", lsize)
     rsize = dllist.count() - middle
-    left = DoubleLinkedList()
+    # print(">>> rsize=", rsize)
+    left = DoubleLinkedList() # using new dllist to copy each smaller list
     right = DoubleLinkedList()
 
     copy_sublist(dllist, left, lsize)
     copy_sublist(dllist, right, rsize)
 
     left = merge_sort(left)
+    # print(">>> ", left.dump("left="))
     right = merge_sort(right)
-
+    # print(">>> will this even run? right=", right.dump("right="))
     return merge(left, right)
 
 
@@ -53,13 +62,13 @@ def merge(left, right):
         else:
             result.shift(right.unshift())
 
-    while left:    
+    while left:
         result.shift(left.unshift())
-        
+
     while right:
         result.shift(right.unshift())
-  
-    return result   
+
+    return result
 
 
 def length(node):
@@ -71,3 +80,7 @@ def length(node):
         count += 1
 
     return count
+
+
+def quick_sort():
+    pass

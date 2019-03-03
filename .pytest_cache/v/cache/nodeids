@@ -1,3 +1,4 @@
 [
-  "ex16/test_sorting.py::test_bubble_sort"
+  "ex16/test_sorting.py::test_bubble_sort",
+  "ex16/test_sorting.py::test_merge_sort"
 ]
