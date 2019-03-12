@@ -2,7 +2,7 @@ import merge_sort_with_list, quick_sort_with_list
 from random import randint
 # import pdb; pdb.set_trace()
 
-max_numbers = 5
+max_numbers = 30
 
 def random_list(count):
     numbers = list()
@@ -33,7 +33,7 @@ def is_sorted(numbers):
 
 
 def test_quick_sort_list():
-    numbers = random_list(max_numbers)
+    numbers = random_list(max_numbers*100)
 
     quick_sort_with_list.quick_sort(numbers, 0, (len(numbers) - 1))
 
