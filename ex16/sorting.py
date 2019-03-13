@@ -28,7 +28,7 @@ def bubble_sort(numbers):
 def merge_sort(dllist: DoubleLinkedList) -> DoubleLinkedList:
 
     # if dllist.count() == 1:
-    if dllist.next == None:
+    if dllist.begin.next == None:
         print(">>> base case: dllist=", dllist.dump("base case"))
         return dllist
 
