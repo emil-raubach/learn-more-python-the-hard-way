@@ -6,15 +6,16 @@ def quick_sort(pylist: list, lo: int, hi: int):
 
 
 def partition(pylist, lo, hi):
+    print(">>> enter partition lo", lo, "hi", hi)
     pivot = pylist[hi]
-    i = j = lo
-    
-    while j < hi:
-        if pylist[j] < pivot:
-            
-            pylist[i], pylist[j] = pylist[j], pylist[i]
-            i += 1
-        j += 1
+    small_index = index = lo
 
-    pylist[i], pylist[hi] = pylist[hi], pylist[i]         
-    return i
+    while index < hi:
+        if pylist[index] < pivot:
+            print(">>>> LESS before swap small_index", small_index, "index", index, "pylist[small_index]", pylist[small_index], "pylist[index]", pylist[index])
+            pylist[small_index], pylist[index] = pylist[index], pylist[small_index]
+            print(">>>> LESS after swap small_index", small_index, "index", index, "pylist[small_index]", pylist[small_index], "pylist[index]", pylist[index])
+            small_index += 1
+        index += 1
+    pylist[small_index], pylist[hi] = pylist[hi], pylist[small_index]         
+    return small_index

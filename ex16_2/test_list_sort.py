@@ -33,7 +33,7 @@ def is_sorted(numbers):
 
 
 def test_quick_sort_list():
-    numbers = random_list(max_numbers*100)
+    numbers = random_list(max_numbers // 3)
 
     quick_sort_with_list.quick_sort(numbers, 0, (len(numbers) - 1))
 
