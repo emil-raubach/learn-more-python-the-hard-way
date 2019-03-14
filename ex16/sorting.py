@@ -89,5 +89,44 @@ def length(node):
     return count
 
 
-def quick_sort():
-    pass
+def quick_sort(dllist: DoubleLinkedList, lo: int, hi: int):
+    if lo < hi:
+        p = partition(dllist, lo, hi)
+        quick_sort(dllist, lo, p - 1)
+        quick_sort(dllist, p + 1, hi)
+
+
+def partition(dllist: DoubleLinkedList, lo: int, hi: int) -> int:
+    pivot = dllist.get(hi)
+    index = small_index = lo
+
+    while index < hi:
+        if get_node(dllist, index).value < pivot:
+            temp_i = get_node(dllist, small_index)
+            temp_j = get_node(dllist, index)
+            temp_i.value, temp_j.value = temp_j.value, temp_i.value
+            small_index += 1
+        index += 1
+
+    temp_i = get_node(dllist, small_index)
+    temp_hi = get_node(dllist, hi)
+    temp_i.value, temp_hi.value = temp_hi.value, temp_i.value
+
+    return small_index
+
+# need a way to traverse the list using indices(?)
+def get_node(dllist: DoubleLinkedList, index: int) -> DoubleLinkedList:
+    """Return the node at the given index."""
+    if dllist.begin:
+        count = 0
+        cur = dllist.begin
+
+        while cur:
+            if index == count:
+                return cur
+            else:
+                count += 1
+                cur = cur.next
+    else:
+        return None
+

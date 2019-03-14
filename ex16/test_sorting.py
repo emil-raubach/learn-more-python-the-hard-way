@@ -31,9 +31,17 @@ def test_bubble_sort():
     assert is_sorted(numbers)
 
 
-def test_merge_sort():
+# def test_merge_sort():
+#     numbers = random_list(max_numbers)
+
+#     sorting.merge_sort(numbers)
+
+#     assert is_sorted(numbers)
+
+
+def test_quick_sort():
     numbers = random_list(max_numbers)
 
-    sorting.merge_sort(numbers)
+    sorting.quick_sort(numbers, 0, numbers.count()-1)
 
     assert is_sorted(numbers)
