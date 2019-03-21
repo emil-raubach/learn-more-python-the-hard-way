@@ -18,18 +18,15 @@ class Dictionary(object):
         """Given a key, find the bucket where it would go."""
         # gets index for a key and assigns it to a bucket
         bucket_id = self.hash_key(key)
-        print("> enter get_bucket() - key=", key, "bucket_id=", bucket_id)
-        # uses the index to get the value of the bucket (which is a dllist node)
+        # uses index to get the value of the bucket (which is a dllist node)
         return self.map.get(bucket_id) # calls the dllist get() function! OMG!!
 
     def get_slot(self, key, default=None):
         """
         Returns either the bucket and node for a slot, or None, None
         """
-        print(">> enter get_slot() - key=", key)
         # gets ref to the slot dllist for a given key
         bucket = self.get_bucket(key) # slot not bucket right?
-        print(">> get_slot() after get_bucket() - key=", key, "bucket=", bucket)
         # if the slot in the bucket is not None
         if bucket:
             # initialize to first node in the slot dllist
@@ -39,26 +36,24 @@ class Dictionary(object):
             while node:
                 # if the key matches the first element of the key/value tuple
                 if key == node.value[0]:
-                    print("<< leave get_slot() if key==node.value - bucket=", bucket, "node=", node)
                     return bucket, node # return the bucket and a ref to the slot / node
                 else:
                     node = node.next 
                     i += 1 # not sure what this is for...
-        print("<< leave get_slot() if fall through - bucket=", bucket)
         # fall through for both if and while above
         return bucket, None # if key isn't already in the list
 
     def get(self, key, default=None):
         """Gets the value in a bucket for the given key, or the default."""
-        print(">>> enter get() - key=", key)
         # gets the bucket and slot for a given key
         bucket, node = self.get_slot(key, default=default)
-        print(">>> in get(), after get_slot() - key=", key, "bucket=", bucket, "node=", node, "node.value=", node.value)
-        # 
+        # ternary operation; if there's a node it returns
+        # it's value, if it exists, else the default (None)
         return node and node.value[1] or default
 
     def set(self, key, value):
         """Sets the key to the value, replacing any existing value."""
+        # gets the bucket and slot for a new key/value pair
         bucket, slot = self.get_slot(key)
 
         if slot:
@@ -70,23 +65,33 @@ class Dictionary(object):
 
     def delete(self, key):
         """Deletes the given key from the Map."""
+        # gets the bucket (slot) for the key to be removed
         bucket = self.get_bucket(key)
         node = bucket.begin
-
+        # traverse the slot dllist
         while node:
+            # unpack the tuple to get the key for comparison
             k, v = node.value
+            # check if the keys match
             if key == k:
+                # if so, remove the node and exit the loop
                 bucket.detach_node(node)
                 break
-            else:
+            else: # otherwise, keep going
                 node = node.next
 
     def list(self):
         """Prints out what's in the Map."""
+        # start at the first node of the map
         bucket_node = self.map.begin
+        # iterate over the buckets
         while bucket_node:
+            # get the first node of the slot list in the given bucket
             slot_node = bucket_node.value.begin
+            # iterate through the slot list
             while slot_node:
+                # print the value and get the next node
                 print(slot_node.value)
                 slot_node = slot_node.next
+            # get the next bucket
             bucket_node = bucket_node.next
