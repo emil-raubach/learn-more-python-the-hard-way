@@ -99,3 +99,15 @@ def test_get():
     assert colors.get(0) == "Vermillion"
     colors.pop()
     assert colors.get(0) == None
+
+
+if __name__ == "__main__":
+    for i in range(1000):
+        test_push()
+        test_pop()
+        test_unshift()
+        test_shift()
+        test_first()
+        test_last()
+        test_get()
+        test_remove()

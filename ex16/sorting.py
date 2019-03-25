@@ -107,7 +107,7 @@ def partition(dllist: DoubleLinkedList, lo: int, hi: int) -> int:
             temp_i.value, temp_j.value = temp_j.value, temp_i.value
             small_index += 1
         index += 1
-
+    # performance:  can we eliminate these? (get_node())
     temp_i = get_node(dllist, small_index)
     temp_hi = get_node(dllist, hi)
     temp_i.value, temp_hi.value = temp_hi.value, temp_i.value

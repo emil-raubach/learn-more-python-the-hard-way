@@ -138,3 +138,14 @@ def test_get():
     colors._invariant()
 
 
+if __name__ == "__main__":
+    for i in range(100):
+        test_push()
+        test_pop()
+        test_unshift()
+        test_shift()
+        test_remove()
+        test_detach_node()
+        test_first()
+        test_last()
+        test_get()

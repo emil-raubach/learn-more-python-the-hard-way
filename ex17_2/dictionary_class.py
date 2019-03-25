@@ -1,3 +1,5 @@
+# First attempt at implementing the Dictionary class
+# from memory (22Mar2019)
 from dllist import DoubleLinkedList
 
 class Dictionary(object):
