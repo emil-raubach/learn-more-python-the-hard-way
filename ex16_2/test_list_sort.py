@@ -2,7 +2,7 @@ import merge_sort_with_list, quick_sort_with_list
 from random import randint
 # import pdb; pdb.set_trace()
 
-max_numbers = 1000
+max_numbers = 30
 
 def random_list(count):
     numbers = list()
@@ -16,6 +16,7 @@ def is_sorted(numbers):
     i = 0
     while i < (len(numbers) - 1):
         if numbers[i] > numbers[i + 1]:
+            print(f"numbers[i]=", numbers[i], " & numbers[i + 1]=", numbers[i + 1])
             return False
         else:
             i += 1
@@ -26,10 +27,10 @@ def is_sorted(numbers):
 
 def test_merge_sort_list():
     numbers = random_list(max_numbers)
-
-    merge_sort_with_list.merge_sort_list(numbers)
-
-    assert is_sorted(numbers)
+    
+    numbers_sorted = merge_sort_with_list.merge_sort_list(numbers)
+    
+    assert is_sorted(numbers_sorted)
 
 
 def test_quick_sort_list():

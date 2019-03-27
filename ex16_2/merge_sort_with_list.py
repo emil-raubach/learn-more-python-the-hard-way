@@ -5,8 +5,8 @@ def merge_sort_list(pylist: list) -> list:
         print(">>> base case: ", pylist)
         return pylist
 
-    left = list()
-    right = list()
+    left = []
+    right = []
 
     for i, elem in enumerate(pylist):
         if i < len(pylist) // 2:
@@ -22,7 +22,7 @@ def merge_sort_list(pylist: list) -> list:
 
 
 def merge(left: list, right: list):
-    result = list()
+    result = []
     print("<<< entering merge...")
     print(f"<<< before while, left is {left}, and right is {right}.")
     while left and right:

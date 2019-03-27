@@ -31,7 +31,7 @@ def test_hash_key():
     cars = Dictionary()
     index = cars.hash_key('WRX') 
     assert index > 0
-    assert index < cars.map.count()
+    assert index < cars.map.count() # can these tests be combined?
     
 if __name__ == "__main__":
     test_set()
