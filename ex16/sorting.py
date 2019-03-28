@@ -27,8 +27,8 @@ def bubble_sort(numbers):
 # As of 27Feb2019 this is not working at all...
 def merge_sort(dllist: DoubleLinkedList) -> DoubleLinkedList:
 
-    # if dllist.count() == 1:
-    if dllist.begin.next == None:
+    if dllist.count() == 1:
+    # if dllist.begin.next == None:
         print(">>> base case: dllist=", dllist.dump("base case"))
         return dllist
 
@@ -56,7 +56,8 @@ def merge(left, right):
     result = DoubleLinkedList()
     print("<<< entering merge...")
     print(f"<<< before while, left is {left.begin}, and right is {right.begin}.")
-    while left is not None and right is not None:  # while both slists are not empty
+    while left.count() != 0 and right.count() != 0:
+        print("<< left.count()=", left.count(), " & right.count()=", right.count())
         print(f"<<< enter while - left=", left.begin, "right=", right.begin)
         if left.begin.value <= right.begin.value:
             print("<<< if-branch: left=", left.begin, "right=", right.begin)
@@ -64,17 +65,19 @@ def merge(left, right):
             print("<<< result=", result.dump("result"))
         else:
             print("<<< else-branch:  left=", left.begin, "right=", right.begin)
-            result.shift(right.unshift())
+            result.push(right.unshift())
             print("<<< result=", result.dump("result"))
 
     print(f"<<< after 1st while - left is {left.begin}, and right is {right.begin}.")
-    print("<<< result=", result)
-    while left:
-        result.shift(left.unshift())
+    print("<<< result=", result.dump("result"))
+    while left.count() != 0:
+        result.push(left.unshift())
 
-    while right:
-        result.shift(right.unshift())
-
+    while right.count() != 0:
+        result.push(right.unshift())
+    print("FINAL RESULT")
+    print("-" * 12)
+    result.dump("THIS CAN'T BE SORTED RIGHT?")
     return result
 
 

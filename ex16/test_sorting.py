@@ -3,7 +3,7 @@ from dllist import DoubleLinkedList # can't import this...
 from random import randint
 # import pdb; pdb.set_trace()
 
-max_numbers = 500
+max_numbers = 30
 
 def random_list(count):
     numbers = DoubleLinkedList()
@@ -31,12 +31,12 @@ def test_bubble_sort():
     assert is_sorted(numbers)
 
 
-# def test_merge_sort():
-#     numbers = random_list(max_numbers)
-
-#     sorting.merge_sort(numbers)
-
-#     assert is_sorted(numbers)
+def test_merge_sort():
+    numbers = random_list(max_numbers)
+    print("test_merge_sort:numbers=", numbers.dump("unsorted"))
+    numbers_sorted = sorting.merge_sort(numbers)
+    print("test_merge_sort:numbers=", numbers.dump("sorted"))
+    assert is_sorted(numbers_sorted)
 
 
 def test_quick_sort():
