@@ -23,61 +23,40 @@ def bubble_sort(numbers):
             break
 
 # top-down merge sort using p-code from the Wikipedia page
-# added type hinting in the function signature
-# As of 27Feb2019 this is not working at all...
 def merge_sort(dllist: DoubleLinkedList) -> DoubleLinkedList:
 
     if dllist.count() == 1:
-    # if dllist.begin.next == None:
-        print(">>> base case: dllist=", dllist.dump("base case"))
         return dllist
 
     left = DoubleLinkedList() # using new dllist to copy each smaller list
     right = DoubleLinkedList()
 
     middle = dllist.count() // 2
-    print(">>> middle=", middle)
     lsize = middle
-    print(">>> lsize=", lsize)
     rsize = dllist.count() - middle
-    print(">>> rsize=", rsize)
 
     copy_sublist(dllist, left, lsize)
     copy_sublist(dllist, right, rsize)
 
     left = merge_sort(left)
-    print(">>> ", left.dump("left="))
     right = merge_sort(right)
-    print(">>> will this even run? right=", right.dump("right="))
+
     return merge(left, right)
 
 
 def merge(left, right):
     result = DoubleLinkedList()
-    print("<<< entering merge...")
-    print(f"<<< before while, left is {left.begin}, and right is {right.begin}.")
     while left.count() != 0 and right.count() != 0:
-        print("<< left.count()=", left.count(), " & right.count()=", right.count())
-        print(f"<<< enter while - left=", left.begin, "right=", right.begin)
         if left.begin.value <= right.begin.value:
-            print("<<< if-branch: left=", left.begin, "right=", right.begin)
             result.push(left.unshift())
-            print("<<< result=", result.dump("result"))
         else:
-            print("<<< else-branch:  left=", left.begin, "right=", right.begin)
             result.push(right.unshift())
-            print("<<< result=", result.dump("result"))
 
-    print(f"<<< after 1st while - left is {left.begin}, and right is {right.begin}.")
-    print("<<< result=", result.dump("result"))
     while left.count() != 0:
         result.push(left.unshift())
 
     while right.count() != 0:
         result.push(right.unshift())
-    print("FINAL RESULT")
-    print("-" * 12)
-    result.dump("THIS CAN'T BE SORTED RIGHT?")
     return result
 
 
