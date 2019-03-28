@@ -1,5 +1,4 @@
 from dllist import DoubleLinkedList
-from scratchpad import copy_sublist
 
 
 def bubble_sort(numbers):
@@ -60,15 +59,16 @@ def merge(left, right):
     return result
 
 
-def length(node):
-    """returns the number of nodes in the dllist"""
-    count = 0
+def copy_sublist(target_list: DoubleLinkedList, dest_list: DoubleLinkedList, 
+                 dest_size: int) -> DoubleLinkedList:
 
-    while node:
-        node = node.next
-        count += 1
+    i = 0
+    while i < dest_size:
+        nodeval = target_list.unshift()
+        dest_list.push(nodeval)
+        i += 1
 
-    return count
+    return dest_list
 
 
 def quick_sort(dllist: DoubleLinkedList, lo: int, hi: int):
