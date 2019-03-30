@@ -72,6 +72,7 @@ def copy_sublist(target_list: DoubleLinkedList, dest_list: DoubleLinkedList,
 
 
 def quick_sort(dllist: DoubleLinkedList, lo: int, hi: int):
+    """performance:  can we replace this with a for-loop?"""
     if lo < hi:
         p = partition(dllist, lo, hi)
         quick_sort(dllist, lo, p - 1)
@@ -79,6 +80,7 @@ def quick_sort(dllist: DoubleLinkedList, lo: int, hi: int):
 
 
 def partition(dllist: DoubleLinkedList, lo: int, hi: int) -> int:
+    """performance:  get_node called too many times."""
     pivot = dllist.get(hi)
     index = small_index = lo
 
@@ -96,7 +98,7 @@ def partition(dllist: DoubleLinkedList, lo: int, hi: int) -> int:
 
     return small_index
 
-# need a way to traverse the list using indices(?)
+# performance:  slowest part of quick_sort, but because it's called a lot.
 def get_node(dllist: DoubleLinkedList, index: int) -> DoubleLinkedList:
     """Return the node at the given index."""
     if dllist.begin:

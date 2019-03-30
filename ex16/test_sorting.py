@@ -3,7 +3,7 @@ from dllist import DoubleLinkedList # can't import this...
 from random import randint
 # import pdb; pdb.set_trace()
 
-max_numbers = 800
+max_numbers = 950
 
 def random_list(count):
     numbers = DoubleLinkedList()
