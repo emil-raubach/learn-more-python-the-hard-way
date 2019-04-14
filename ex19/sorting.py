@@ -73,6 +73,7 @@ def copy_sublist(target_list: DoubleLinkedList, dest_list: DoubleLinkedList,
 
 def quick_sort(dllist: DoubleLinkedList, lo: int, hi: int):
     """performance:  can we replace this with a for-loop?"""
+    # performance: just turn in into a python list first.
     if lo < hi:
         p = partition(dllist, lo, hi)
         quick_sort(dllist, lo, p - 1)

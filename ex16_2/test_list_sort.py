@@ -2,7 +2,7 @@ import merge_sort_with_list, quick_sort_with_list
 from random import randint
 # import pdb; pdb.set_trace()
 
-max_numbers = 30
+max_numbers = 950
 
 def random_list(count):
     numbers = list()
