@@ -1,15 +1,14 @@
 class BSTreeNode(object):
     
-    def __init__(self, key, value, left, right, parent):
+    def __init__(self, key, value, left=None, right=None, parent=None):
         self.key = key
         self.value = value
         self.left = left
         self.right = right
         self.parent = parent
-    # This seems to lead to a recursion error when I access `.root`
+    
     def __repr__(self):
-        return (f"{self.__class__.__name__}({self.key!r}, {self.value!r}, "
-                f"{self.left!r}, {self.right!r}, {self.parent!r})") 
+        return f"{self.key}={self.value}:<--- ({self.left}) ---> ({self.right})"
 
 
 class BSTree(object):
@@ -44,34 +43,44 @@ class BSTree(object):
 
     def set(self, key, value):
         """Add a new value to the tree."""
-        
+        print(">>>>>>>>>>>>>>>>>>>>>> enter")
         if self.root is not None:
 
             node = self.root
 
-            while True:    
-                if key <= node.key:                    
-
+            while node:   
+                print(">>>> top while node=", node) 
+                if node.key == key:
+                    node.value = value
+                    break
+                elif node.left == None and node.right == None:
+                    print(">> leaf==", node)
+                    if key < node.key:
+                        node.left = BSTreeNode(key, value, parent=node)
+                        print(">> add left", node.left, "key=", key)
+                    else:
+                        node.right = BSTreeNode(key, value, parent=node)
+                        print(">> add right", node.right, "key=", key)
+                    break
+                elif key < node.key:
+                    print("<--- go left", node, "key=", key)
                     if node.left:
                         node = node.left
                     else:
-                        new_node = BSTreeNode(key, value, None, None, node)
-                        node.left = new_node
-                        self.num_nodes += 1
-                        break
-                elif key > node.key:
+                        node.left = BSTreeNode(key, value, parent=node)
+                        print("++++ add node left", node.left, "key=", key)
+                elif key >= node.key:
+                    print("---> go right", node, "key=", key)
                     if node.right:
                         node = node.right
                     else:
-                        new_node = BSTreeNode(key, value, None, None, node)
-                        node.right = new_node
-                        self.num_nodes += 1
-                        break
+                        node.right = BSTreeNode(key, value, parent=node)
+                        print("++++ add node right", node.right, "key=", key)
                 else:
-                    break # what goes here
+                    assert False, "Should not happen."
         else:
-            self.root = BSTreeNode(key, value, None, None, None)
-            self.num_nodes += 1        
+            self.root = BSTreeNode(key, value)
+            print("<<<< root=", self.root)        
 
 
     def delete(self):
