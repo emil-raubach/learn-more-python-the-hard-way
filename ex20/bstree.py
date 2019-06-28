@@ -8,7 +8,7 @@ class BSTreeNode(object):
         self.parent = parent
     
     def __repr__(self):
-        return f"{self.key}={self.value}:<--- ({self.left}) ---> ({self.right})"
+        return f"{self.key}={self.value}:<---({self.left})---> ({self.right})"
 
 
 class BSTree(object):
@@ -22,85 +22,98 @@ class BSTree(object):
         """Return the value of a node with the given key, or return None."""
         # are we comparing the keys or the values?  Values makes more sense...
         # start at the root
-        # if self.root is not None:
-            # if node.key = node.value (not value but key right?)
-                # return node.value
 
-            # if no left and right child:
-                # return None
-            # elif key < node key:
-                # You go left if the given key is less-than the node's key. 
-                #   node = node.left
-            # else:
-                # You go right if the key is greater-than the node's key. 
-                # node = node.right
-                
-            # return None
-        # else:
-            # return None
-        pass
+        if self.root is not None:
+            node = self.root
 
+            while node:
+                if node.key == key:
+                    return node.value
+                elif node.left == None and node.right == None:
+                    return None
+                elif key < node.key:
+                    # You go left if the given key is less-than the node's key. 
+                    node = node.left
+                else:
+                    # You go right if the key is greater-than the node's key. 
+                    node = node.right
+        else:
+            return None
+        
 
     def set(self, key, value):
         """Add a new value to the tree."""
-        print(">>>>>>>>>>>>>>>>>>>>>> enter")
         if self.root is not None:
 
             node = self.root
 
             while node:   
-                print(">>>> top while node=", node) 
                 if node.key == key:
                     node.value = value
                     break
                 elif node.left == None and node.right == None:
-                    print(">> leaf==", node)
                     if key < node.key:
                         node.left = BSTreeNode(key, value, parent=node)
-                        print(">> add left", node.left, "key=", key)
                     else:
                         node.right = BSTreeNode(key, value, parent=node)
-                        print(">> add right", node.right, "key=", key)
                     break
                 elif key < node.key:
-                    print("<--- go left", node, "key=", key)
                     if node.left:
                         node = node.left
                     else:
                         node.left = BSTreeNode(key, value, parent=node)
-                        print("++++ add node left", node.left, "key=", key)
                 elif key >= node.key:
-                    print("---> go right", node, "key=", key)
                     if node.right:
                         node = node.right
                     else:
                         node.right = BSTreeNode(key, value, parent=node)
-                        print("++++ add node right", node.right, "key=", key)
                 else:
                     assert False, "Should not happen."
         else:
             self.root = BSTreeNode(key, value)
-            print("<<<< root=", self.root)        
 
 
-    def delete(self):
-        """Delete a value from the tree if it exists."""
-        pass
+    def delete(self, key):
+        """Delete a node from the tree if it exists."""
 
+        if self.root is not None:
+
+            node = self.root
+            
+            while node:
+                if node.key == key:
+                    # the node is a leaf (no children), 
+                    if node.left == None and node.right == None:
+                        # If it's a leaf then just remove it. 
+                        node.parent == None # what if it's the root?
+                        break
+                    # has one child, or 
+                    elif node.left or node.right:
+                    #   If it has one child, then replace it with the child. 
+                    # has two children. 
+                        if node.left:
+                            node = node.left
+                        else:
+                            node = node.right
+                    #   If it has two children, then it gets really complicated so read the section on deleting below.
+                elif node.key < key:
+                    pass
+                else:
+                    pass
+
+        else:
+            return None
+
+    def _list(self, node):
+        """Print out the contents of the list."""
+        
+        if node:
+            self._list(node.left)
+            self._list(node.right)
+            print(node.key, node.value)
 
     def list(self):
-        """Print out the contents of the list."""
-        pass
-        # Walk the tree and print everything out. 
-        # The important piece to list is that you can walk the tree in different ways to produce different output. 
-        # If you walk the left, then the right paths, you get something different than if you do the inverse. 
-        # If you go all the way to the bottom and then print as you come up the tree toward root, you get yet another kind of output. 
-        # You can also print the nodes as you go down the tree, from root to the "leaves". 
-        # Try different styles to see which one does what.
-        cur = self.root
-
-        while cur:
-            pass
+        self._list(self.root)
 
 
     def _invariant(self):
