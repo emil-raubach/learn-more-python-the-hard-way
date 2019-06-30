@@ -85,23 +85,33 @@ class BSTree(object):
                     # the node is a leaf (no children), 
                     if node.left == None and node.right == None:
                         # If it's a leaf then just remove it. 
-                        node.parent == None # what if it's the root?
+                        if node is self.root: # special case where D is root.
+                            self.root = None
+                        else:
+                            if node.parent.key < key:
+                                node.parent.left == None
+                            else:
+                                node.parent.right == None
+                            node.parent == None 
                         break
                     # has one child, or 
                     elif node.left or node.right:
-                    #   If it has one child, then replace it with the child. 
-                    # has two children. 
+                        # If it has one child, then replace it with the child. 
                         if node.left:
                             node = node.left
                         else:
                             node = node.right
-                    #   If it has two children, then it gets really complicated so read the section on deleting below.
-                elif node.key < key:
-                    pass
+                    # If it has two children, then it gets really complicated so read the section on deleting below.
+                    elif key < node.key:
+                        pass
+                    else:
+                        pass
+                elif key < node.key:
+                    node = node.left
                 else:
-                    pass
-
-        else:
+                    node = node.right
+                     
+        else: # empty BSTree
             return None
 
     def _list(self, node):
