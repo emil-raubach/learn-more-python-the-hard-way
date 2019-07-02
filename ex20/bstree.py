@@ -17,13 +17,11 @@ class BSTree(object):
         self.root = None
         self.num_nodes = 0
 
-
+    # iterative 'find' function
     def get(self, key):
         """Return the value of a node with the given key, or return None."""
-        # are we comparing the keys or the values?  Values makes more sense...
-        # start at the root
-
-        if self.root is not None:
+        
+        if self.root is not None: # could use `if not self.root` ala Zed
             node = self.root
 
             while node:
@@ -40,7 +38,7 @@ class BSTree(object):
         else:
             return None
         
-
+  
     def set(self, key, value):
         """Add a new value to the tree."""
         if self.root is not None:
@@ -48,7 +46,7 @@ class BSTree(object):
             node = self.root
 
             while node:   
-                if node.key == key:
+                if node.key == key: # this handles duplicates?
                     node.value = value
                     break
                 elif node.left == None and node.right == None:
@@ -73,34 +71,50 @@ class BSTree(object):
             self.root = BSTreeNode(key, value)
 
 
+    # def _delete(self, key, node):
+    #     """Deletes the given key from the data structure."""
+    #     assert node, "Invalid node given."
+
+    #     if key < node.key:
+    #         self._delete(key, node.left)
+    #     elif key > node.key:
+    #         self._delete(key, node.right)
+    #     else:
+    #         if node.left == None and node.right == None:
+    #             node.parent.remove_child(node)
+
+
     def delete(self, key):
         """Delete a node from the tree if it exists."""
-
+        # could try to write one algo to find the node, and another to delete it.
         if self.root is not None:
 
             node = self.root
             
             while node:
+                # print("\n>>>> top while node=", node)
                 if node.key == key:
+                    # print(">> key==", node)
                     # the node is a leaf (no children), 
-                    if node.left == None and node.right == None:
+                    if node is self.root:
+                        self.root = None
+                        break
+                    elif node.left == None and node.right == None:
+                        # print(">> children=", node.left, node.right)
                         # If it's a leaf then just remove it. 
-                        if node is self.root: # special case where D is root.
-                            self.root = None
+                        if node.parent.key < key:
+                            node.parent.left == None
                         else:
-                            if node.parent.key < key:
-                                node.parent.left == None
-                            else:
-                                node.parent.right == None
-                            node.parent == None 
+                            node.parent.right == None
+                        node.parent == None 
                         break
                     # has one child, or 
                     elif node.left or node.right:
                         # If it has one child, then replace it with the child. 
                         if node.left:
-                            node = node.left
+                            node.parent.left = node.left
                         else:
-                            node = node.right
+                            node.parent.right = node.right
                     # If it has two children, then it gets really complicated so read the section on deleting below.
                     elif key < node.key:
                         pass
@@ -114,16 +128,40 @@ class BSTree(object):
         else: # empty BSTree
             return None
 
-    def _list(self, node):
+    def _list(self, node, indent=0):
         """Print out the contents of the list."""
-        
-        if node:
-            self._list(node.left)
-            self._list(node.right)
-            print(node.key, node.value)
+        assert node, "Invalid node given."
 
-    def list(self):
+        if node:
+            print(" " * indent, node.key, "=", node.value)
+            
+            if node.left:
+                print(" " * indent, "<", end="")
+                self._list(node.left, indent+1)
+            if node.right:
+                print(" " * indent, ">", end="")
+                self._list(node.right, indent+1)
+
+    def list(self, start=""):
+        print("\n\n----", start)
         self._list(self.root)
+
+
+    def find_min(self, node): # only in right subtrees? or call on node.right?
+        # if node exists
+        if node is not None:
+        # start at node
+            cur = node
+            # go left until you reach a node without a left child
+            while cur:
+                if cur.left == None:
+                    # return the node (or the key? or both?)
+                    return cur.key
+                else:
+                    cur = cur.left
+            # otherwise return None?
+        else:
+            return None
 
 
     def _invariant(self):
