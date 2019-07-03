@@ -29,28 +29,15 @@ def test_BSTree_list():
     numbers.list()
 
 
-# def test_delete():
-#     numbers = test_BSTree_set()
-#     numbers.set('nine', 9)
-#     numbers.set('eight', 8)
-#     numbers.set('two', 2)
-#     numbers.list()
-#     numbers.delete('two')
-#     assert numbers.get('two') == None
-
-
-def test_find_min():
-    numbers = BSTree()
-    numbers.set(6, 'six')
-    assert numbers.find_min(numbers.root) == 6
-    numbers.set(9, 'nine')
-    numbers.set(8, 'eight')
-    assert numbers.find_min(numbers.root.right) == 8
-    print(numbers.root)
-    numbers.set(13, 'thirteen')
-    assert numbers.find_min(numbers.root.right) == 8
-    numbers.set(7, 'seven')
-    numbers.set(11, 'eleven')
-    numbers.set(2, 'two')
-    assert numbers.find_min(numbers.root.right) == 7
-    print(numbers.root)
+def test_delete():
+    numbers = test_BSTree_set()
+    numbers.set('nine', 9)
+    numbers.set('eight', 8)
+    numbers.set('two', 2)
+    numbers.list()
+    numbers.delete('two')
+    assert numbers.get('two') == None
+    numbers.set('two', 2)
+    numbers.delete('three')
+    assert numbers.get('three') == None
+    assert numbers.get('two') == 2
