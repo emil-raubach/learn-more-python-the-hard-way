@@ -1,7 +1,8 @@
+from dllist import DoubleLinkedList
+
 def binary_search_list(a_list, target):
     """Return the index of target in the sorted list, or None."""
     if not a_list:
-        print("\n>>>> empty list", a_list)
         return None
     else:
         begin = 0
@@ -9,15 +10,29 @@ def binary_search_list(a_list, target):
         mid = (end + begin) // 2 
         while begin <= end:
             mid = (end + begin) // 2 
-            print("\n\n>>>> start while, target=", target, "begin=", begin, 
-                  "end=", end, "mid=", mid, "a_list=", a_list)
             if target == a_list[mid]:
-                print("<<< match: target=", target, "a_list[mid]=", a_list[mid])
                 return mid
             else:
                 if target < a_list[mid]:
                     end = mid - 1
-                    print("\n>>> target < a_list[mid], target=", target, "begin=", begin, "end=", end, "mid=", mid, "a_list=", a_list)
                 else:
                     begin = mid + 1
-                    print("\n>>> target > a_list[mid], target=", target, "begin=", begin, "end=", end, "mid=", mid, "a_list=", a_list)
+
+
+def binary_search_dllist(dllist, target):
+    # if the dllist is empty, return None
+    if dllist.count() == 0:
+        return None
+    # otherwise
+    else:
+        begin = 0
+        end = dllist.count() - 1
+        while begin <= end:
+            mid = (end + begin) // 2
+            if target == dllist.get(mid):
+                return mid
+            else:
+                if target < dllist.get(mid):
+                    end = mid - 1
+                else:
+                    begin = mid + 1
