@@ -71,9 +71,8 @@ def test_performance():
         assert index == i
 
     data = merge_sort(random_dllist(1000)) # can't get this to work right now...
-    print(">> merge_sorted dllist=", data.dump("sorted_dllist"))
     for i in range(data.count()):
-        print(">>>> i and v are=", i, " & ", v)
+        print(">>>> i=", i)
         index = binary_search_dllist(data, data.get(i))
         print(">>> index=", index, 'data.get(i)=', data.get(i))
         assert index == i

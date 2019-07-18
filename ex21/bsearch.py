@@ -36,3 +36,15 @@ def binary_search_dllist(dllist, target):
                     end = mid - 1
                 else:
                     begin = mid + 1
+
+
+def bsearch_list_alt(a_list, target):
+    # Set L to 0 and R to n - 1
+    # If L = R, go to step 6.
+    # Set m to the ceiling of (L + R) / 2, 
+    # which is the least integer greater than or
+    # equal to (L + R) / 2.
+    # If A_m > T, set R to m - 1 and go to step 2.
+    # Set L to m and go to step 2.
+    # Now L = R, the search is done.  If A_L = T, return L.
+    # Otherwise, the search terminates as unsuccessful.
