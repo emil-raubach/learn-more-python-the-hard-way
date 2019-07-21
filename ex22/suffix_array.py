@@ -26,16 +26,11 @@ class SuffixArraySearch(object):
 
     def find_longest(self, beginning):
         """Return the longest substring that has `beginning` or None."""
-        # get the index of the shortest 
         shortest, sa = self.find_shortest(beginning)
-        # Starting at the index of the shortest
         sa_index = [shortest]
         for i in range(shortest + 1, len(sa)):
-        # check if the next suffix starts with the first letter of beginning
             if sa[i].startswith(beginning[0]): 
-        # if it does, save the index to a list
                 sa_index.append(i)
-        # otherwise, you are done; return the last element in the index list.
         return sa_index[-1], sa
 
     def find_all(self, beginning):
