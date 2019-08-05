@@ -59,11 +59,36 @@ class TSTree(object):
         keys = [x for x in key]
         self.root = self._set(self.root, keys, value)
 
+    def find_shortest(self, key):
+        """Given a key K, find the shortest key/value pair that starts with K."""
+        nodes = self.find_all(key)
+        if nodes:
+            shortest = nodes[0]
+            for node in nodes:
+                if len(node) < len(shortest):
+                    shortest = node
+            return shortest
+        else:
+            return None
+
+    def find_longest(self, key):
+        """Given a key K, find the longest key/value pair that starts with K.
+        """    
+        nodes = self.find_all(key)
+        if nodes:
+            longest = nodes[0]
+            for node in nodes:
+                if len(node) > len(longest):
+                    longest = node
+            return longest
+        else:
+            return None
+
     def _find_all(self, node, key, results):
         """Helper function for `find_all`"""
-        # is node eq None? 
-        if node.eq == None:
-            # if so, add the value to the list
+        if not node: return 
+        if node.key and node.value:
+            # change to Zed's code since I have a different Node class.
             results.append(node.value)
 
         if node.low:
@@ -85,6 +110,23 @@ class TSTree(object):
         if start:
             self._find_all(start.eq, key, results)
         return results
+
+    def find_part(self, key):
+        """Given a key K, find the shortest key that has a part of the beginning of K."""
+        found = self.find_shortest(key[:1])
+        if not found: return
+
+        for i in range(2, len(key)):
+            # do something?
+            stem = key[:i]
+            node = self.find_shortest(stem)
+
+            if not node:
+                return found
+            else:
+                found = node
+                
+        return found
 
 
     def _list(self, node, indent=0):
