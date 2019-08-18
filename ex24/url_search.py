@@ -27,15 +27,30 @@ class URLRouter(object):
         if rv:
             return rv[0]
         else:
-            return '' # not sure if you should return an empty string...
+            return None
 
     def best_match_url(self, url_to_find):
         """Return the best match for a URL."""
-        pass
+        # setup the key for `sorted()`
+        key = lambda x: len(x.key)
+        # get all of the urls that start with the search url
+        possible = sorted(self.url_starts_with(url_to_find), key=key)
+        # sort them using `sorted()`; use the `key` parameter?
+        return possible and possible[0] or None
 
     def url_starts_with(self, url_to_find):
-        """Return all objects that start with `URL`."""
-        pass
+        """Return all objects that start with `URL`."""        
+        rv = [
+            path.key 
+            for path in self.urls
+            if path.key.startswith(url_to_find)
+        ]
+
+        if rv:
+            return rv
+        else:
+            return None
+
 
     def shortest_url(self, url_to_find):
         """Return the shortest URL matching object."""
@@ -45,7 +60,7 @@ class URLRouter(object):
         pass
 
 
-class URLRouterParser(URLRouter):
+class TSTRouter(URLRouter):
 
     def __init__(self):
         pass
