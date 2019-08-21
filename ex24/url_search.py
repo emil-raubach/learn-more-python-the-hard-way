@@ -29,14 +29,11 @@ class URLRouter(object):
         else:
             return None
 
-    def best_match_url(self, url_to_find):
-        """Return the best match for a URL."""
-        # setup the key for `sorted()`
-        key = lambda x: len(x.key)
-        # get all of the urls that start with the search url
-        possible = sorted(self.url_starts_with(url_to_find), key=key)
-        # sort them using `sorted()`; use the `key` parameter?
-        return possible and possible[0] or None
+    # def best_match_url(self, url_to_find):
+        # """Return the best match for a URL."""
+        # key = lambda x: len(x.key)
+        # possible = sorted(self.url_starts_with(url_to_find), key=key)
+        # return possible and possible[0] or None
 
     def url_starts_with(self, url_to_find):
         """Return all objects that start with `URL`."""        
@@ -63,7 +60,19 @@ class URLRouter(object):
 class TSTRouter(URLRouter):
 
     def __init__(self):
-        pass
-    
+        self.urls = TSTree()
 
+    def new_url(self, key, value):
+        self.urls.set(key, value)
 
+    def match_url(self, url_to_find):
+        return self.urls.get(url_to_find)
+
+    def url_starts_with(self, url_to_find):
+        return self.urls.find_all(url_to_find)
+
+    def shortest_url(self, url_to_find):
+        return self.urls.find_shortest(url_to_find)
+
+    def longest_url(self, url_to_find):
+        return self.urls.find_longest(url_to_find)
