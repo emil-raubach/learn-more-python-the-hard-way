@@ -12,7 +12,7 @@ class BSTreeNode(object):
         while node.left:
             node = node.left
         return node
-
+        
     def replace_child(self, child):
         """Given a child, it will find the child, move it's value to here,
         then remove it.  Copied from wikipedia to solve it quicker.

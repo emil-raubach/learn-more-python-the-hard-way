@@ -4,11 +4,11 @@ from url_search import URLRouter
 # in the other I test the key.
 def test_match_url():
     router = URLRouter()
-    router.new_url('/path/', 'Path')
+    router.add('/path/', 'Path')
     assert router.match_url('/path/') == 'Path'
-    router.new_url('/path/to/something/', 'Not a path')
+    router.add('/path/to/something/', 'Not a path')
     assert router.match_url('/path/to/') == None
-    router.new_url('/path/to/another/thing/', 'Long Path')
+    router.add('/path/to/another/thing/', 'Long Path')
     assert router.match_url('/path/to/another/thing/') == 'Long Path'
 
     return router
