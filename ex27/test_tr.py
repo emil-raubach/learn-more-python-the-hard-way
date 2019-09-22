@@ -8,3 +8,7 @@ def test_translate():
 def test_tr_cs():
     results = tr.main(['-cs', 't', 'X'], 'ttyyhhxxaa')
     assert results == "XXyyhhxxaa"
+
+def test_tr_d():
+    results = tr.main(['-d', 't'], 'ttyyhhxxaa')
+    assert results == "yyhhxxaa"
