@@ -18,6 +18,7 @@ def run_process(command):
         sys.exit() # had `break` before since this was in a while-loop.
     else:
         status = subprocess.run(command)
+        # should return status (help with testing?)
 
 def main():
     try:
