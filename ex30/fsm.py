@@ -1,54 +1,59 @@
-def START():
-    return LISTENING
+from fsm_class import FSM
 
-def LISTENING(event):
-    if event == "connect":
-        return CONNECTED
-    elif event == "error":
-        return LISTENING
-    else:
-        return ERROR
 
-def CONNECTED(event):
-    if event == "accept":
-        return ACCEPTED
-    elif event == "close":
-        return CLOSED
-    else:
-        return ERROR
+class FSMSocket(FSM):
 
-def ACCEPTED(event):
-    if event == "close":
-        return CLOSED
-    elif event == "read":
-        return READING(event)
-    elif event == "write":
-        return WRITING(event)
-    else:
-        return ERROR
+    def START(self):
+        return self.LISTENING
 
-def READING(event):
-    if event == "read":
-        return READING
-    elif event == "write":
-        return WRITING(event)
-    elif event == "close":
-        return CLOSED
-    else:
-        return ERROR
+    def LISTENING(self, event):
+        if event == "connect":
+            return self.CONNECTED
+        elif event == "error":
+            return self.LISTENING
+        else:
+            return self.ERROR
 
-def WRITING(event):
-    if event == "read":
-        return READING(event)
-    elif event == "write":
-        return WRITING
-    elif event == "close":
-        return CLOSED
-    else:
-        return ERROR
+    def CONNECTED(self, event):
+        if event == "accept":
+            return self.ACCEPTED
+        elif event == "close":
+            return self.CLOSED
+        else:
+            return self.ERROR
 
-def CLOSED(event):
-    return LISTENING(event)
+    def ACCEPTED(self, event):
+        if event == "close":
+            return self.CLOSED
+        elif event == "read":
+            return self.READING(event)
+        elif event == "write":
+            return self.WRITING(event)
+        else:
+            return self.ERROR
 
-def ERROR(event):
-    return ERROR
+    def READING(self, event):
+        if event == "read":
+            return self.READING
+        elif event == "write":
+            return self.WRITING(event)
+        elif event == "close":
+            return self.CLOSED
+        else:
+            return self.ERROR
+
+    def WRITING(self, event):
+        if event == "read":
+            return self.READING(event)
+        elif event == "write":
+            return self.WRITING
+        elif event == "close":
+            return self.CLOSED
+        else:
+            return self.ERROR
+
+    def CLOSED(self, event):
+        return self.LISTENING(event)
+
+    def ERROR(self, event):
+        return self.ERROR
