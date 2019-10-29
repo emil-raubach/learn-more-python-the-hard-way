@@ -1,4 +1,4 @@
-from fsm_class import FSMSocket
+from socket_fsm import FSMSocket
 
 # basically stealing Zed's test to help get unstuck...
 def test_basic_connection():

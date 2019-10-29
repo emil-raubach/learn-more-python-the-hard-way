@@ -1,59 +1,25 @@
-from fsm_class import FSM
+# Just going to straight copy Zed's implementation since I really 
+# just feel stuck / not sure how to move forward.  
+from inspect import getmembers
+import re
 
+STATE_NAME = re.compile('^[A-Z0-9]+$')
 
-class FSMSocket(FSM):
+class FSM(object):
+    """Class to implement a basic Finite State Machine"""
+    def __init__(self):
+        self.state_name = 'START'
+        members = getmembers(self)
+        self.possible_states = {}
 
-    def START(self):
-        return self.LISTENING
+        for k, v in members:
+            if STATE_NAME.match(k):
+                self.possible_states[k] = v
+    
+    def handle(self, event):
+        """Setter function to change the state of the FSM."""
+        state_handler = self.lookup_state()
+        self.state_name = state_handler(event)
 
-    def LISTENING(self, event):
-        if event == "connect":
-            return self.CONNECTED
-        elif event == "error":
-            return self.LISTENING
-        else:
-            return self.ERROR
-
-    def CONNECTED(self, event):
-        if event == "accept":
-            return self.ACCEPTED
-        elif event == "close":
-            return self.CLOSED
-        else:
-            return self.ERROR
-
-    def ACCEPTED(self, event):
-        if event == "close":
-            return self.CLOSED
-        elif event == "read":
-            return self.READING(event)
-        elif event == "write":
-            return self.WRITING(event)
-        else:
-            return self.ERROR
-
-    def READING(self, event):
-        if event == "read":
-            return self.READING
-        elif event == "write":
-            return self.WRITING(event)
-        elif event == "close":
-            return self.CLOSED
-        else:
-            return self.ERROR
-
-    def WRITING(self, event):
-        if event == "read":
-            return self.READING(event)
-        elif event == "write":
-            return self.WRITING
-        elif event == "close":
-            return self.CLOSED
-        else:
-            return self.ERROR
-
-    def CLOSED(self, event):
-        return self.LISTENING(event)
-
-    def ERROR(self, event):
-        return self.ERROR
+    def lookup_state(self):
+        return self.possible_states.get(self.state_name)
