@@ -1,10 +1,11 @@
-from socket_fsm import FSMSocket
+import fsm
 
 # basically stealing Zed's test to help get unstuck...
 def test_basic_connection():
-    fsm = FSMSocket()
+    state = fsm.START()
     script = ["connect", "accept", "read", "read", "write", "close", "connect"]
 
+    print()
     for event in script:
-        print(event, ">>>", fsm)
-        fsm.handle(event)
+        print(event, ">>>", state)
+        state = state(event)

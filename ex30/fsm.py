@@ -1,25 +1,54 @@
-# Just going to straight copy Zed's implementation since I really 
-# just feel stuck / not sure how to move forward.  
-from inspect import getmembers
-import re
+def START():
+    return LISTENING
 
-STATE_NAME = re.compile('^[A-Z0-9]+$')
+def LISTENING(event):
+    if event == "connect":
+        return CONNECTED
+    elif event == "error":
+        return LISTENING
+    else:
+        return ERROR
 
-class FSM(object):
-    """Class to implement a basic Finite State Machine"""
-    def __init__(self):
-        self.state_name = 'START'
-        members = getmembers(self)
-        self.possible_states = {}
+def CONNECTED(event):
+    if event == "accept":
+        return ACCEPTED
+    elif event == "close":
+        return CLOSED
+    else:
+        return ERROR
 
-        for k, v in members:
-            if STATE_NAME.match(k):
-                self.possible_states[k] = v
-    
-    def handle(self, event):
-        """Setter function to change the state of the FSM."""
-        state_handler = self.lookup_state()
-        self.state_name = state_handler(event)
+def ACCEPTED(event):
+    if event == "close":
+        return CLOSED
+    elif event == "read":
+        return READING(event)
+    elif event == "write":
+        return WRITING(event)
+    else:
+        return ERROR
 
-    def lookup_state(self):
-        return self.possible_states.get(self.state_name)
+def READING(event):
+    if event == "read":
+        return READING
+    elif event == "write":
+        return WRITING(event)
+    elif event == "close":
+        return CLOSED
+    else:
+        return ERROR
+
+def WRITING(event):
+    if event == "read":
+        return READING(event)
+    elif event == "write":
+        return WRITING
+    elif event == "close":
+        return CLOSED
+    else:
+        return ERROR
+
+def CLOSED(event):
+    return LISTENING(event)
+
+def ERROR(event):
+    return ERROR
