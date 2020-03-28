@@ -8,3 +8,11 @@ __pychache__
 
 # ignore the .vscode files automatically generated
 .vscode/
+
+# ignore the .idea folder (is this PyCharm?)
+.idea/
+
+# why are these here...
+Library/*
+usr*
+pyvenv.cfg
