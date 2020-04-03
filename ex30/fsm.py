@@ -1,6 +1,7 @@
 def START():
     return LISTENING
 
+
 def LISTENING(event):
     if event == "connect":
         return CONNECTED
@@ -9,6 +10,7 @@ def LISTENING(event):
     else:
         return ERROR
 
+
 def CONNECTED(event):
     if event == "accept":
         return ACCEPTED
@@ -16,6 +18,7 @@ def CONNECTED(event):
         return CLOSED
     else:
         return ERROR
+
 
 def ACCEPTED(event):
     if event == "close":
@@ -27,6 +30,7 @@ def ACCEPTED(event):
     else:
         return ERROR
 
+
 def READING(event):
     if event == "read":
         return READING
@@ -36,6 +40,7 @@ def READING(event):
         return CLOSED
     else:
         return ERROR
+
 
 def WRITING(event):
     if event == "read":
@@ -47,8 +52,10 @@ def WRITING(event):
     else:
         return ERROR
 
+
 def CLOSED(event):
     return LISTENING(event)
 
+
 def ERROR(event):
-    return ERROR 
+    return ERROR

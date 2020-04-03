@@ -15,9 +15,8 @@ class State(object):
 
 class FSM(object):
     """Finite State Machine to control generic FSMs."""
-    def __init__(self, initial_state):
-        self.initial_state = initial_state
-        self.current_state = self.initial_state
+    def __init__(self):
+        self.current_state = None
         self.states = {}
 
     def next_state(self, event):
@@ -33,3 +32,7 @@ class FSM(object):
                 return
             else:
                 continue
+
+    def start(self, state):
+        """Sets the starting state of the FSM"""
+        self.current_state = state

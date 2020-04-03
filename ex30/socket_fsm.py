@@ -80,14 +80,15 @@ if __name__ == "__main__":
 
     # setup the FSM object
     initial_state = states.get('listening')
-    fsm = FSM(initial_state)
+    fsm = FSM()
+    fsm.start(initial_state)
     fsm.states = states
 
     # print("The initial state is:", fsm.initial_state)
     # print("The current state is:", fsm.current_state)
     # print("The list of states is:", fsm.states)
 
-    events = ["accept", "read", "read", "write", "close", "connect"]
+    events = ["connect", "accept", "read", "read", "write", "close", "connect"]
 
     for event in events:
         fsm.next_state(event)
