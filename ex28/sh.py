@@ -2,16 +2,19 @@
 import sys
 import subprocess
 
-# Breaking the io out as its own function 
+
+# Breaking the io out as its own function
 # so it can be replaced with a lambda in the test.
 def input_func():
     user_input = input('> ')
     return user_input
 
+
 def parse_input(input_func):
     in_str = input_func()
     parsed_str = in_str.strip().split(' ')
     return parsed_str
+
 
 def run_process(command):
     if command[0] == 'exit':
@@ -19,6 +22,8 @@ def run_process(command):
     else:
         status = subprocess.run(command)
         # should return status (help with testing?)
+        return status
+
 
 def main():
     try:
@@ -26,7 +31,7 @@ def main():
             input_str = parse_input(input_func)
             run_process(input_str)
     except (EOFError, KeyboardInterrupt) as e:
-        print('\nbye!')
+        print(f'\nbye! {e}')
 
 
 if __name__ == "__main__":
