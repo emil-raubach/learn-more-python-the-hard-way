@@ -13,6 +13,6 @@ __pychache__
 .idea/
 
 # why are these here...
-Library/*
-usr*
 pyvenv.cfg
+.pytest_cache/v/cache/nodeids
+.pytest_cache/v/cache/nodeids
