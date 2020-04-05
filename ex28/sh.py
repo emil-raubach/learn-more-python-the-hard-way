@@ -18,7 +18,7 @@ def parse_input(input_func):
 
 def run_process(command):
     if command[0] == 'exit':
-        sys.exit() # had `break` before since this was in a while-loop.
+        sys.exit()  # had `break` before since this was in a while-loop.
     else:
         status = subprocess.run(command)
         # should return status (help with testing?)

@@ -13,3 +13,10 @@ def test_run_command(mocked_subprocess):
     mocked_subprocess.run.return_value = ''  # mock CompletedProcess object?
     mocked_subprocess.run(parsed_in_str)
     mocked_subprocess.run.assert_called_with(['ls', '-l'])
+
+
+@patch('sys.exit')
+@patch('subprocess.run')
+def test_run_process(mocked_subprocess, sys_exit):
+    _ = sh.run_process(['exit'])
+    assert sys_exit.called
