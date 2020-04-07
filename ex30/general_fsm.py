@@ -2,7 +2,7 @@ class State(object):
     """Base class for states in a finite state machine."""
     def __init__(self):
         self.name = ""
-        self.inputs = []
+        self.inputs = []  # these should be dict() with the value being functions to pass the next state
         self.outputs = []
 
     def __repr__(self):
