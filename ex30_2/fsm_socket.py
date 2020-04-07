@@ -2,7 +2,8 @@ from state_machine import FSM
 
 
 class FSMSocket(FSM):
-    start_state = 'listening'  # This seems like bad Python...
+    def __init__(self, initial_state):
+        self.start_state = initial_state
 
     def get_next_value(self, state, inp):
         if self.state == 'listening':
