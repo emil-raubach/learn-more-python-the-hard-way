@@ -1,6 +1,7 @@
 # Use Zed's puny Python scanner example script, and turn it into a generic
 # Scanner class.  It will take an input file, scan it into this list of
 # tokens, which will then allow you to pull the tokens out in order.
+import re
 
 
 class Token(object):
@@ -17,12 +18,18 @@ class Token(object):
 
 class Scanner(object):
 
-    def __init__(self, tokens):
+    def __init__(self, raw_tokens):
         """Takes a similar list of tuples (w/o the `re.compile`)
         and configures the scanner.  Or list of `Token()` objects
         with their associated string?
         """
-        self.tokens = []  # list of tuples? call `scan()`?
+        self.raw_tokens = raw_tokens
+        self.tokens = []
+
+        # get the regex objects for each of the tokens
+        for regex, token in self.raw_tokens:
+            pattern = re.compile(regex)
+            self.tokens.append((pattern, token))
 
     def scan(self, string):
         """Takes a string and runs the scan on it, creating a list of tokens
