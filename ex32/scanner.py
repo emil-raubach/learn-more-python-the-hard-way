@@ -18,48 +18,66 @@ class Token(object):
 
 class Scanner(object):
 
-    def __init__(self, raw_tokens):
+    def __init__(self, raw_tokens, code):
         """Takes a similar list of tuples (w/o the `re.compile`)
         and configures the scanner.  Or list of `Token()` objects
         with their associated string?
         """
         self.raw_tokens = raw_tokens
-        self.tokens = []
+        self.regex_list = self.get_regex(self.raw_tokens)
+        self.tokens = self.scan(code)
 
-        # get the regex objects for each of the tokens
-        for regex, token in self.raw_tokens:
-            pattern = re.compile(regex)
-            self.tokens.append((pattern, token))
-
-    def scan(self, string):
+    def scan(self, code):
         """Takes a string and runs the scan on it, creating a list of tokens
         for later.  You should keep this string around for people to access
         later.
         """
-        pass
+        self.script = []
 
-    def match(self, token_list):
+        for line in code:
+            i = 0
+            while i < len(line):
+                token, string, end = self.match(i, line)
+                assert token, "Failed to match line %s" % string
+                if token:
+                    i += end
+                    self.script.append((token, string, i, end))
+
+        return self.script
+
+    def match(self, i, line):
         """Given a list of possible tokens, return the first one that matches
         the first token in the list and removes it.
         """
-        # adding code from the example...
-        def match(i, line):  # obviously need to change this.
-            start = line[i:]
-            for regex, token in token_list:
-                match = regex.match(start)
-                if match:
-                    begin, end = match.span()
-                    return token, start[:end], end
-            return None, start, None
+        start = line[i:]
+        for regex, token in self.regex_list:
+            match = regex.match(start)
+            if match:
+                begin, end = match.span()
+                return token, start[:end], end
+        return None, start, None
 
-    def peek(self, token_list):
+    def get_regex(self, raw_tokens):
+        # get the regex objects for each of the tokens
+        regs = []
+
+        for regex, token in raw_tokens:
+            pattern = re.compile(regex)
+            regs.append((pattern, token))
+
+        return regs
+
+    def peek(self, token_list): #  Zed doesn't even implement this...
         """Given a list of possible tokens, returns which ones **could**
         work with match but does not remove it from the list.
         """
         pass
 
-    def push(self, token):
+    def push(self, token):  # or this!  Arg...
         """Push a token back on the token stream so that a later `peek` or
         `match` will return it.
         """
         pass
+
+    def done(self):
+        return len(self.tokens) == 0
